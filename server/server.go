@@ -23,6 +23,7 @@ func baseHandler(ctx *Context, fn Handler) http.Handler {
 }
 
 func helloHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+	ctx.Logger.Printf("Obey the cock!")
 	w.Write([]byte("Hello"))
 
 	return nil
