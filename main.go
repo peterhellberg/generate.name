@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/peterhellberg/gen/server"
+	"github.com/peterhellberg/generator-generator/server"
 )
 
 const (
