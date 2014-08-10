@@ -2,8 +2,17 @@
 
   {{ define "content" }}
       <div class="row">
+        <div class="col-md-10">
+          <h1><a href="/">Generator-Generator</a></h1>
+        </div>
+
+        <div class="col-md-2">
+          <a href="/{{.Slug}}/edit" class="btn btn-default btn-block">Edit</a>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-12">
-          <h1>{{.Name}}</h1>
+          <h2>{{.Name}}</h2>
         </div>
       </div>
       <div class="row">

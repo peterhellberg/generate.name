@@ -2,10 +2,10 @@
 
   {{ define "content" }}
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <h1>Generator-Generator</h1>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Create a new Generator</h3>
@@ -36,10 +36,10 @@
       {{ range .Generators }}
       <div class="row">
         <div class="col-md-10">
-          <h2><a href="/{{.Slug}}">{{.Name}}</a></h2>
+          <h2 style="margin-top: 0; margin-bottom: 0.5em;"><a href="/{{.Slug}}">{{.Name}}</a></h2>
         </div>
         <div class="col-md-2">
-          <a href="/{{.Slug}}/edit" class="btn btn-default btn-lg btn-block">EDIT</a>
+          <a href="/{{.Slug}}/edit" class="btn btn-default btn-block">EDIT</a>
         </div>
       </div>
       {{ end }}

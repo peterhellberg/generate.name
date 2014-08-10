@@ -2,8 +2,12 @@
 
   {{ define "content" }}
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
           <h1><a href="/">Generator-Generator</a></h1>
+        </div>
+
+        <div class="col-md-2">
+          <a href="/{{.Slug}}" class="btn btn-default btn-block">Show</a>
         </div>
       </div>
       <form action="/{{.Slug}}" method="POST" role="form">
@@ -60,13 +64,15 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <blockquote>
-              <p id="examples"> </p>
-            </blockquote>
+          <div class="col-md-12">
+            <input type="submit" value="Update" class="btn btn-primary btn-block">
           </div>
-          <div class="col-md-8">
-            <input type="submit" value="Update" class="btn btn-primary btn-lg btn-block">
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="well">
+              <p id="examples"> </p>
+            </div>
           </div>
         </div>
       </form>
@@ -88,5 +94,5 @@
 
       generateExample();
 
-      setInterval(generateExample, 2500);
+      setInterval(generateExample, 10000);
   {{ end }}
