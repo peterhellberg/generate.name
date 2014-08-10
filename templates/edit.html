@@ -4,72 +4,72 @@
       <div class="row">
         <div class="col-md-12">
           <h1>{{.Name}}</h1>
-          <form action="/{{.Slug}}" method="POST" role="form">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" id="name" name="name" value="{{.Name}}" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="template">Template</label>
-                  <input type="text" class="form-control" id="template" name="template" value="{{.Template}}">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field1">Field1</label>
-                  <textarea rows=10 class="form-control" id="field1" name="field1">{{range .Field1}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field2">Field2</label>
-                  <textarea rows=10 class="form-control" id="field2" name="field2">{{range .Field2}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field3">Field3</label>
-                  <textarea rows=10 class="form-control" id="field3" name="field3">{{range .Field3}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field4">Field4</label>
-                  <textarea rows=10 class="form-control" id="field4" name="field4">{{range .Field4}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field5">Field5</label>
-                  <textarea rows=10 class="form-control" id="field5" name="field5">{{range .Field5}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="form-group">
-                  <label for="field6">Field6</label>
-                  <textarea rows=10 class="form-control" id="field6" name="field6">{{range .Field6}}{{.}}{{end}}</textarea>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <input type="submit" value="Update" class="btn btn-primary btn-block">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="well" id="examples"></div>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
+      <form action="/{{.Slug}}" method="POST" role="form">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" name="name" value="{{.Name}}" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="template">Template</label>
+              <input type="text" class="form-control" id="template" name="template" value="{{.Template}}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field1">Field1</label>
+              <textarea rows=10 class="form-control" id="field1" name="field1">{{range .Field1}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field2">Field2</label>
+              <textarea rows=10 class="form-control" id="field2" name="field2">{{range .Field2}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field3">Field3</label>
+              <textarea rows=10 class="form-control" id="field3" name="field3">{{range .Field3}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field4">Field4</label>
+              <textarea rows=10 class="form-control" id="field4" name="field4">{{range .Field4}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field5">Field5</label>
+              <textarea rows=10 class="form-control" id="field5" name="field5">{{range .Field5}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="field6">Field6</label>
+              <textarea rows=10 class="form-control" id="field6" name="field6">{{range .Field6}}{{.}}{{end}}</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <blockquote>
+              <p id="examples"> </p>
+            </blockquote>
+          </div>
+          <div class="col-md-8">
+            <input type="submit" value="Update" class="btn btn-primary btn-block">
+          </div>
+        </div>
+      </form>
   {{ end }}
 
   {{ define "script" }}
@@ -86,5 +86,5 @@
 
       generateExample();
 
-      setInterval(generateExample, 6000);
+      setInterval(generateExample, 2000);
   {{ end }}
