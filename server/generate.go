@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/peterhellberg/generator-generator/generator"
 )
 
@@ -29,8 +28,6 @@ func generateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error
 	if err != nil {
 		return err
 	}
-
-	spew.Dump(n)
 
 	w.Write([]byte(g.Generate()))
 
