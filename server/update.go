@@ -26,12 +26,12 @@ func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 	_, err = c.UpsertId(slug, &generator.Generator{
 		Slug:     slug,
 		Name:     r.FormValue("name"),
-		Field1:   strings.Split(r.FormValue("field1"), "\r"),
-		Field2:   strings.Split(r.FormValue("field2"), "\r"),
-		Field3:   strings.Split(r.FormValue("field3"), "\r"),
-		Field4:   strings.Split(r.FormValue("field4"), "\r"),
-		Field5:   strings.Split(r.FormValue("field5"), "\r"),
-		Field6:   strings.Split(r.FormValue("field6"), "\r"),
+		Field1:   strings.Split(strings.TrimSpace(r.FormValue("field1")), "\n"),
+		Field2:   strings.Split(strings.TrimSpace(r.FormValue("field2")), "\n"),
+		Field3:   strings.Split(strings.TrimSpace(r.FormValue("field3")), "\n"),
+		Field4:   strings.Split(strings.TrimSpace(r.FormValue("field4")), "\n"),
+		Field5:   strings.Split(strings.TrimSpace(r.FormValue("field5")), "\n"),
+		Field6:   strings.Split(strings.TrimSpace(r.FormValue("field6")), "\n"),
 		Template: r.FormValue("template"),
 	})
 
