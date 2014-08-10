@@ -13,9 +13,19 @@ func generateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error
 		return err
 	}
 
-	n, err := strconv.Atoi(r.URL.Query().Get("n"))
+	q := r.URL.Query()
+
+	n, err := strconv.Atoi(q.Get("n"))
 	if err != nil || n > 100 {
 		n = 5
+	}
+
+	sep := q.Get("sep")
+
+	if sep == "br" {
+		sep = "<br>"
+	} else {
+		sep = "\n"
 	}
 
 	sess := ctx.Session.Clone()
@@ -29,7 +39,7 @@ func generateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error
 		return err
 	}
 
-	w.Write([]byte(g.Generate()))
+	w.Write(g.GenerateNJoined(n, sep))
 
 	return nil
 }

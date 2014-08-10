@@ -76,7 +76,7 @@
       function generateExample() {
           $.ajax({
             type: 'GET',
-            url: '/{{.Slug}}/generate',
+            url: '/{{.Slug}}/generate?n=3&sep=br',
             dataType: 'text',
             complete: function(data){
                $("#examples").html(data.responseText);

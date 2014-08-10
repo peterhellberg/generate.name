@@ -20,8 +20,12 @@ type Generator struct {
 	Field6   []string `bson:"field6,omitempty"`
 }
 
-func (g *Generator) GenerateN(n int) []string {
-	list := []string{}
+func (g *Generator) GenerateNJoined(n int, sep string) []byte {
+	return bytes.Join(g.GenerateN(n), []byte(sep))
+}
+
+func (g *Generator) GenerateN(n int) [][]byte {
+	list := [][]byte{}
 
 	for i := 0; i < n; i++ {
 		list = append(list, g.Generate())
@@ -30,7 +34,7 @@ func (g *Generator) GenerateN(n int) []string {
 	return list
 }
 
-func (g *Generator) Generate() string {
+func (g *Generator) Generate() []byte {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	t, err := template.New(g.Slug).Parse(g.Template)
@@ -58,11 +62,7 @@ func (g *Generator) Generate() string {
 	if err != nil {
 		panic(err)
 	}
-	return gen.String()
-}
-
-func (g *Generator) Examples(n int) string {
-	return strings.Join(g.GenerateN(n), "\n")
+	return gen.Bytes()
 }
 
 func randArrayString(src []string) []string {
