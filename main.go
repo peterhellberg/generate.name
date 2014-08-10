@@ -14,7 +14,6 @@ const (
 )
 
 func main() {
-	// Open a connection to MongoDB
 	log.Println("Connecting to MongoDB…")
 	sess, err := mgo.Dial(mongoURL())
 	if err != nil {
@@ -23,22 +22,26 @@ func main() {
 	}
 	defer sess.Close()
 
+	ctx := &server.Context{
+		Logger:  log.New(os.Stdout, "", 0),
+		Session: sess,
+	}
+
 	port := getenv("PORT", defaultPort)
-	err = server.ListenAndServe(os.Stdout, ":"+port)
+
+	log.Printf("Starting serving on http://0.0.0.0:%s", port)
+	err = server.ListenAndServe(ctx, ":"+port)
 	if err != nil {
 		panic(err)
 	}
 }
 
-func mongoURL() (url string) {
-	url = os.Getenv("MONGOHQ_URL")
-
-	if url == "" {
-		log.Println("ENV variable MONGOHQ_URL not set!")
-		os.Exit(1)
+func mongoURL() string {
+	if url := os.Getenv("MONGOHQ_URL"); url != "" {
+		return url
 	}
 
-	return
+	return "mongodb://localhost/generator-generator"
 }
 
 func getenv(key, fallback string) string {
