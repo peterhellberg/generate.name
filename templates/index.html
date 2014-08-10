@@ -1,0 +1,56 @@
+  {{ define "title" }}IDX{{ end }}
+
+  {{ define "content" }}
+      <div class="row">
+        <div class="col-md-5">
+          <h1>Generator-Generator</h1>
+        </div>
+        <div class="col-md-7">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Create a new Generator</h3>
+            </div>
+            <div class="panel-body">
+              <form action="/" method="POST" role="form">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Generator name" required>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="slug-display" placeholder="URL slug" disabled>
+                      <input type="hidden" id="slug" name="slug" required>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+        {{range .Generators}}
+          <h2><a href="/{{.Slug}}/edit">{{.Name}}</a></h2>
+        {{end}}
+        </div>
+      </div>
+    {{ end }}
+
+    {{ define "script" }}
+      function toSlug(str) {
+        return str.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+      }
+
+      $("#name").keyup(function(e) {
+        var slug = toSlug($("#name").val());
+
+        $("#slug-display").val(slug);
+        $("#slug").val(slug);
+      });
+    {{ end }}

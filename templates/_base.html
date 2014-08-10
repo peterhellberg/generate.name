@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ template "title" . }}</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/lumen/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: #efefef;
+      }
+
+      .container {
+        padding-top: 1em;
+        padding-bottom: 1em;
+
+        background: #fff;
+      }
+
+      .well {
+        margin-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">{{ template "content" . }}
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>{{ template "script" . }}
+    </script>
+  </body>
+</html>
