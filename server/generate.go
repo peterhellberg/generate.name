@@ -35,11 +35,9 @@ func generateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error
 
 	g := generator.Generator{}
 	err = c.FindId(slug).One(&g)
-	if err != nil {
-		return err
+	if err == nil {
+		w.Write(g.GenerateNJoined(n, sep))
 	}
-
-	w.Write(g.GenerateNJoined(n, sep))
 
 	return nil
 }
