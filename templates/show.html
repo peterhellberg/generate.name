@@ -6,7 +6,30 @@
           <h1>{{.Name}}</h1>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <blockquote>
+            <ul id="examples" class="list-group"></li>
+          </blockquote>
+        </div>
+      </div>
   {{ end }}
 
   {{ define "script" }}
+      function generateExample() {
+          $.ajax({
+            type: 'GET',
+            url: '/{{.Slug}}/generate?n=1',
+            dataType: 'text',
+            complete: function(data){
+              var li = '<li class="list-group-item">' + data.responseText + '</li>'
+
+              $("#examples").prepend(li);
+            }
+          });
+      }
+
+      generateExample();
+
+      setInterval(generateExample, 3000);
   {{ end }}

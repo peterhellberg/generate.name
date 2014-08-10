@@ -33,13 +33,16 @@
           </div>
         </div>
       </div>
+      {{ range .Generators }}
       <div class="row">
-        <div class="col-md-12">
-        {{range .Generators}}
-          <h2><a href="/{{.Slug}}/edit">{{.Name}}</a></h2>
-        {{end}}
+        <div class="col-md-10">
+          <h2><a href="/{{.Slug}}">{{.Name}}</a></h2>
+        </div>
+        <div class="col-md-2">
+          <a href="/{{.Slug}}/edit" class="btn btn-default btn-lg btn-block">EDIT</a>
         </div>
       </div>
+      {{ end }}
     {{ end }}
 
     {{ define "script" }}
