@@ -41,5 +41,8 @@ func getSlug(r *http.Request, suffix string) (string, error) {
 func ListenAndServe(ctx *Context, addr string) error {
 	http.Handle("/", handlerFunc(ctx, routesHandler))
 
+	http.HandleFunc("/favicon.png", favicon)
+	http.HandleFunc("/favicon.ico", favicon)
+
 	return http.ListenAndServe(addr, nil)
 }
