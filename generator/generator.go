@@ -72,5 +72,10 @@ func randArrayString(src []string) []string {
 	for i, v := range perm {
 		dest[v] = src[i]
 	}
+
+	if len(dest) == 0 {
+		return []string{" "}
+	}
+
 	return dest
 }
