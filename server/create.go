@@ -2,6 +2,7 @@ package server
 
 import (
 	"errors"
+	"html"
 	"net/http"
 	"regexp"
 
@@ -14,7 +15,7 @@ func createHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	slug := r.FormValue("slug")
+	slug := html.EscapeString(r.FormValue("slug"))
 
 	rp := regexp.MustCompile("^[a-z0-9-]+$")
 
@@ -28,7 +29,7 @@ func createHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 	c := sess.DB("").C("generators")
 
 	_, err = c.UpsertId(slug, bson.M{"$set": bson.M{
-		"name": r.FormValue("name"),
+		"name": html.EscapeString(r.FormValue("name")),
 	}})
 
 	if err != nil {
