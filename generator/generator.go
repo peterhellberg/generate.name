@@ -62,7 +62,12 @@ func (g *Generator) Generate() []byte {
 	if err != nil {
 		panic(err)
 	}
-	return gen.Bytes()
+
+	s := gen.String()
+
+	s = strings.Replace(s, `[BR]`, `<br>`, -1)
+
+	return []byte(strings.Split(s, "[END]")[0])
 }
 
 func randArrayString(src []string) []string {
