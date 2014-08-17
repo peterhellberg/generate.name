@@ -2,11 +2,11 @@
 
   {{ define "content" }}
       <div class="row">
-        <div class="col-md-2 col-md-push-10">
-          <a href="/{{.Slug}}" class="btn btn-default btn-block btn-lg nav-btn">Show</a>
-        </div>
-        <div class="col-md-10 col-md-pull-2">
+        <div class="col-md-10">
           <h1><a href="/">Generate</a> {{.Name}}</h1>
+        </div>
+        <div class="col-md-2">
+          <a href="/{{.Slug}}" class="btn btn-default btn-block btn-lg nav-btn">Show</a>
         </div>
       </div>
       <form action="/{{.Slug}}" method="POST" role="form">
