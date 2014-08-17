@@ -3,6 +3,7 @@ package generator
 import (
 	"bytes"
 	"math/rand"
+	"strconv"
 	"strings"
 	"text/template"
 	"time"
@@ -65,14 +66,19 @@ func (g *Generator) Generate() []byte {
 
 	s := gen.String()
 
+	// Break row
 	s = strings.Replace(s, `[BR]`, `<br>`, -1)
+
+	// Random digit
+	for strings.Contains(s, `[D]`) == true {
+		s = strings.Replace(s, `[D]`, strconv.Itoa(rand.Intn(9)+1), 1)
+	}
 
 	return []byte(strings.Split(s, "[END]")[0])
 }
 
 func randArrayString(src []string) []string {
 	dest := make([]string, len(src))
-	rand.Seed(time.Now().UTC().UnixNano())
 	perm := rand.Perm(len(src))
 	for i, v := range perm {
 		dest[v] = src[i]
