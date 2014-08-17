@@ -5,7 +5,16 @@
         <div class="col-md-6">
           <h1>Generate</h1>
         </div>
-        <div class="col-md-6">
+      </div>
+      {{ range .Generators }}
+      <div class="row">
+        <div class="col-md-10">
+          <h2 style="margin-top: 0; margin-bottom: 0.5em;"><a href="/{{.Slug}}">{{.Name}}</a></h2>
+        </div>
+      </div>
+      {{ end }}
+      <div class="row" style="margin-top: 2em;">
+        <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Create a new Generator</h3>
@@ -15,17 +24,17 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Generator name" required>
+                      <input type="text" class="form-control input-lg" id="name" name="name" placeholder="Generator name" required>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="slug-display" placeholder="URL slug" disabled>
+                      <input type="text" class="form-control input-lg" id="slug-display" placeholder="URL slug" disabled>
                       <input type="hidden" id="slug" name="slug" required>
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <input type="submit" value="Create" class="btn btn-primary btn-block">
+                    <input type="submit" value="Create" class="btn btn-lg btn-primary btn-block">
                   </div>
                 </div>
               </form>
@@ -33,13 +42,6 @@
           </div>
         </div>
       </div>
-      {{ range .Generators }}
-      <div class="row">
-        <div class="col-md-10">
-          <h2 style="margin-top: 0; margin-bottom: 0.5em;"><a href="/{{.Slug}}">{{.Name}}</a></h2>
-        </div>
-      </div>
-      {{ end }}
     {{ end }}
 
     {{ define "script" }}
