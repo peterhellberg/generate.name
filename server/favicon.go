@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	blue   = color.RGBA{0x15, 0x8C, 0xBA, 0xFF}
-	icon16 = iconBytes(16, blue)
+	blue  = color.RGBA{0x15, 0x8C, 0xBA, 0xFF}
+	icons = map[int][]byte{16: iconBytes(16, blue)}
 )
 
 func favicon(w http.ResponseWriter, r *http.Request) {
@@ -22,11 +22,15 @@ func favicon(w http.ResponseWriter, r *http.Request) {
 	// Return default icon if error,
 	// less than 16 px or above 1024 px
 	if err != nil || s <= 16 || s > 1024 {
-		w.Write(icon16)
+		w.Write(icons[16])
 		return
 	}
 
-	w.Write(iconBytes(s, blue))
+	if icons[s] == nil {
+		icons[s] = iconBytes(s, blue)
+	}
+
+	w.Write(icons[s])
 }
 
 func fill(i *image.RGBA, c color.RGBA) *image.RGBA {
