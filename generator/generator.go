@@ -74,6 +74,17 @@ func (g *Generator) Generate() []byte {
 		s = strings.Replace(s, `[D]`, strconv.Itoa(rand.Intn(9)+1), 1)
 	}
 
+	// Random roman numeral from 1-10
+	for strings.Contains(s, `[ROMAN10]`) == true {
+		r, err := roman(rand.Intn(9) + 1)
+
+		if err != nil {
+			s = strings.Replace(s, `[ROMAN10]`, ``, 1)
+		} else {
+			s = strings.Replace(s, `[ROMAN10]`, r, 1)
+		}
+	}
+
 	return []byte(strings.Split(s, "[END]")[0])
 }
 
