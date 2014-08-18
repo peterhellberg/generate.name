@@ -9,7 +9,7 @@
           <a href="/{{.Slug}}/edit" class="btn btn-default btn-block btn-lg nav-btn">Edit</a>
         </div>
         <div class="col-xs-8 col-md-2">
-          <a onclick="generateExample()" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>
+          <a id="generate-btn" onclick="generateExample()" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>
         </div>
       </div>
       <div class="row">
@@ -25,10 +25,19 @@
             type: 'GET',
             url: '/{{.Slug}}/generate?n=1',
             dataType: 'text',
+            beforeSend: function() {
+              $("#generate-btn").text("Generating").addClass("btn-danger");
+            },
             complete: function(data){
               var li = '<li class="list-group-item">' + data.responseText + '</li>'
 
-              $("#examples").prepend(li);
+              setTimeout(function() {
+                $("#generate-btn").text("Generate").removeClass("btn-danger");
+                $("#examples").prepend(li);
+              }, 190)
+            },
+            error: function(data){
+              $("#generate-btn").text("Generate").removeClass("btn-danger");
             }
           });
       }
