@@ -35,10 +35,8 @@
             complete: function(data){
               var li = '<li class="list-group-item">' + data.responseText + '</li>'
 
-              setTimeout(function() {
-                $("#generate-btn").text("Generate").removeClass("btn-danger");
-                $("#examples").prepend(li);
-              }, 100)
+              $("#generate-btn").text("Generate").removeClass("btn-danger");
+              $("#examples").prepend(li);
             },
             error: function(data){
               $("#generate-btn").text("Generate").removeClass("btn-danger");
