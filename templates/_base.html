@@ -67,7 +67,13 @@
     <div class="container">{{ template "content" . }}
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>{{ template "script" . }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.2/fastclick.min.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+
+      {{ template "script" . }}
     </script>
   </body>
 </html>
