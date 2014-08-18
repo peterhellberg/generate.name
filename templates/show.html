@@ -20,6 +20,10 @@
   {{ end }}
 
   {{ define "script" }}
+      $(function() {
+        FastClick.attach(document.body);
+      });
+
       function generateExample() {
           $.ajax({
             type: 'GET',
