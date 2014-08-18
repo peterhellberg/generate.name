@@ -6,7 +6,7 @@
           <h1><a href="/">Generate</a> {{.Name}}</h1>
         </div>
         <div class="col-xs-12 col-md-2">
-          <a href="/{{.Slug}}" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>
+          <a id="generate-btn" href="/{{.Slug}}" onclick="$('#generate-btn').addClass('btn-danger');" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>
         </div>
       </div>
       <form action="/{{.Slug}}" method="POST" role="form">
