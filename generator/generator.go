@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// Generator represents an arbitrary generator
 type Generator struct {
 	Slug     string   `bson:"_id"`
 	Name     string   `bson:"name"`
@@ -21,10 +22,12 @@ type Generator struct {
 	Field6   []string `bson:"field6,omitempty"`
 }
 
+// GenerateNJoined generates a slice of bytes joined by the given separator
 func (g *Generator) GenerateNJoined(n int, sep string) []byte {
 	return bytes.Join(g.GenerateN(n), []byte(sep))
 }
 
+// GenerateN returns a slice of slices of bytes
 func (g *Generator) GenerateN(n int) [][]byte {
 	list := [][]byte{}
 
@@ -35,6 +38,7 @@ func (g *Generator) GenerateN(n int) [][]byte {
 	return list
 }
 
+// Generate generates a random slice of bytes
 func (g *Generator) Generate() []byte {
 	rand.Seed(time.Now().UTC().UnixNano())
 

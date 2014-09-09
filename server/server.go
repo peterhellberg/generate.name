@@ -9,11 +9,13 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// Context contains the logger and MongoDB session
 type Context struct {
 	Logger  *log.Logger
 	Session *mgo.Session
 }
 
+// Handler takes a context, request and response writer
 type Handler func(*Context, *http.Request, http.ResponseWriter) error
 
 func handlerFunc(ctx *Context, fn Handler) http.Handler {
