@@ -1,6 +1,7 @@
 package server
 
 import (
+	"errors"
 	"html"
 	"net/http"
 	"strings"
@@ -24,9 +25,26 @@ func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 
 	c := sess.DB("").C("generators")
 
+	g := generator.Generator{}
+	err = c.FindId(slug).One(&g)
+	if err != nil {
+		return err
+	}
+
+	keyParam := r.URL.Query().Get("key")
+	editable := g.Key == "" || g.Key == keyParam
+
+	if !editable {
+		return errors.New("not allowed to edit this generator")
+	}
+
+	name := html.EscapeString(r.FormValue("name"))
+	key := html.EscapeString(r.FormValue("key"))
+
 	_, err = c.UpsertId(slug, &generator.Generator{
 		Slug:     slug,
-		Name:     html.EscapeString(r.FormValue("name")),
+		Name:     name,
+		Key:      key,
 		Field1:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field1"))), "\n"),
 		Field2:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field2"))), "\n"),
 		Field3:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field3"))), "\n"),
@@ -40,7 +58,13 @@ func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	http.Redirect(w, r, "/"+slug+"/edit", 301)
+	path := "/" + slug + "/edit"
+
+	if key != "" {
+		path = path + "?key=" + key
+	}
+
+	http.Redirect(w, r, path, 301)
 
 	return nil
 }

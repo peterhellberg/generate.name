@@ -6,7 +6,9 @@
           <h1><a href="/">Generate</a> {{.Name}}</h1>
         </div>
         <div class="col-xs-4 col-md-2">
-          <a href="/{{.Slug}}/edit" class="btn btn-default btn-block btn-lg nav-btn">Edit</a>
+          {{ if .IsEditable }}
+            <a href="/{{.Slug}}/edit?key={{.Key}}" class="btn btn-default btn-block btn-lg nav-btn">Edit</a>
+          {{end}}
         </div>
         <div class="col-xs-8 col-md-2">
           <a id="generate-btn" onclick="generateExample()" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>

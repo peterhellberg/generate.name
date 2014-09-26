@@ -12,6 +12,11 @@ var show = template.Must(template.ParseFiles(
 	"templates/show.html",
 ))
 
+type ShowGenerator struct {
+	generator.Generator
+	IsEditable bool
+}
+
 func showHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 	slug, err := getSlug(r, "")
 	if err != nil {
@@ -29,5 +34,8 @@ func showHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	return show.Execute(w, g)
+	keyParam := r.URL.Query().Get("key")
+	editable := g.Key == "" || g.Key == keyParam
+
+	return show.Execute(w, ShowGenerator{g, editable})
 }

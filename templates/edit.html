@@ -1,6 +1,7 @@
   {{ define "title" }}Edit {{.Name}}{{ end }}
 
   {{ define "content" }}
+    {{ if .IsEditable }}
       <div class="row">
         <div class="col-xs-12 col-md-10">
           <h1><a href="/">Generate</a> {{.Name}}</h1>
@@ -9,9 +10,9 @@
           <a id="generate-btn" href="/{{.Slug}}" onclick="$('#generate-btn').text('Generationg').addClass('btn-danger');" class="btn btn-primary btn-block btn-lg nav-btn">Generate</a>
         </div>
       </div>
-      <form action="/{{.Slug}}" method="POST" role="form">
+      <form action="/{{.Slug}}?key={{.Key}}" method="POST" role="form">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" name="name" value="{{.Name}}" required>
@@ -21,6 +22,12 @@
             <div class="form-group">
               <label for="template">Template</label>
               <input type="text" class="form-control" id="template" name="template" value="{{.Template}}">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="name">Key</label>
+              <input type="text" class="form-control" id="key" name="key" value="{{.Key}}">
             </div>
           </div>
         </div>
@@ -75,9 +82,11 @@
           </div>
         </div>
       </form>
+    {{ end }}
   {{ end }}
 
   {{ define "script" }}
+    {{ if .IsEditable }}
       $(function() {
         FastClick.attach(document.body);
       });
@@ -96,4 +105,5 @@
       generateExample();
 
       setInterval(generateExample, 10000);
+    {{ end }}
   {{ end }}

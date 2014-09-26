@@ -13,6 +13,7 @@ import (
 type Generator struct {
 	Slug     string   `bson:"_id"`
 	Name     string   `bson:"name"`
+	Key      string   `bson:"key,omitempty"`
 	Template string   `bson:"template,omitempty"`
 	Field1   []string `bson:"field1,omitempty"`
 	Field2   []string `bson:"field2,omitempty"`

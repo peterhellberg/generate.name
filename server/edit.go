@@ -12,6 +12,11 @@ var edit = template.Must(template.ParseFiles(
 	"templates/edit.html",
 ))
 
+type EditGenerator struct {
+	generator.Generator
+	IsEditable bool
+}
+
 func editHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 	slug, err := getSlug(r, "/edit")
 	if err != nil {
@@ -29,5 +34,8 @@ func editHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	return edit.Execute(w, g)
+	keyParam := r.URL.Query().Get("key")
+	editable := g.Key == "" || g.Key == keyParam
+
+	return edit.Execute(w, EditGenerator{g, editable})
 }
