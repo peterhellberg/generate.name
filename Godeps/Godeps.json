@@ -1,6 +1,6 @@
 {
-	"ImportPath": "github.com/peterhellberg/generator-generator",
-	"GoVersion": "go1.3",
+	"ImportPath": "github.com/peterhellberg/generate.name",
+	"GoVersion": "go1.3.2",
 	"Deps": [
 		{
 			"ImportPath": "gopkg.in/mgo.v2",

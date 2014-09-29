@@ -1,1 +1,1 @@
-web: generator-generator
+web: generate.name

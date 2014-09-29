@@ -1,1 +1,3 @@
-# Generator-Generator
+# [generate.name](http://generate.name)
+
+A Generator-Generator

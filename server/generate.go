@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/peterhellberg/generator-generator/generator"
+	"github.com/peterhellberg/generate.name/generator"
 )
 
 func generateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {

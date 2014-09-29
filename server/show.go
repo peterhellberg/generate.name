@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"text/template"
 
-	"github.com/peterhellberg/generator-generator/generator"
+	"github.com/peterhellberg/generate.name/generator"
 )
 
 var show = template.Must(template.ParseFiles(

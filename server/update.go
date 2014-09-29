@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/peterhellberg/generator-generator/generator"
+	"github.com/peterhellberg/generate.name/generator"
 )
 
 func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {

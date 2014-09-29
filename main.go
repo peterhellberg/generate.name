@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/mgo.v2"
 
-	"github.com/peterhellberg/generator-generator/server"
+	"github.com/peterhellberg/generate.name/server"
 )
 
 const (
