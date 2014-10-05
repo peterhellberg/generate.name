@@ -74,14 +74,14 @@ func (g *Generator) Generate() []byte {
 	// Break row
 	s = strings.Replace(s, `[BR]`, `<br>`, -1)
 
-	// Random digit
+	// Random digit from 1-9
 	for strings.Contains(s, `[D]`) == true {
 		s = strings.Replace(s, `[D]`, strconv.Itoa(rand.Intn(9)+1), 1)
 	}
 
 	// Random roman numeral from 1-10
 	for strings.Contains(s, `[ROMAN10]`) == true {
-		r, err := roman(rand.Intn(9) + 1)
+		r, err := roman(rand.Intn(10) + 1)
 
 		if err != nil {
 			s = strings.Replace(s, `[ROMAN10]`, ``, 1)
