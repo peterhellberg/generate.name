@@ -2,6 +2,9 @@
 
 A Generator-Generator
 
+
+[![GoDoc](https://godoc.org/github.com/peterhellberg/generate.name/server?status.svg)](https://godoc.org/github.com/peterhellberg/generate.name/server)
+
 ## Fields on the edit page
 
 Each generator has `Name`, `Template`, `Key` and `Field1` to `Field6` input fields.
