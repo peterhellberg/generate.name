@@ -12,6 +12,8 @@ var show = template.Must(template.ParseFiles(
 	"templates/show.html",
 ))
 
+// ShowGenerator contains the generator
+// and if it is editable
 type ShowGenerator struct {
 	generator.Generator
 	IsEditable bool

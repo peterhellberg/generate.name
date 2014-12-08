@@ -12,6 +12,8 @@ var edit = template.Must(template.ParseFiles(
 	"templates/edit.html",
 ))
 
+// EditGenerator contains the generator
+// and if it is editable
 type EditGenerator struct {
 	generator.Generator
 	IsEditable bool
