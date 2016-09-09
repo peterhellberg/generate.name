@@ -12,10 +12,10 @@ var index = template.Must(template.ParseFiles(
 	"templates/index.html",
 ))
 
-func indexHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+func (s *Server) indexHandler(r *http.Request, w http.ResponseWriter) error {
 	var gs []generator.Generator
 
-	sess := ctx.Session.Clone()
+	sess := s.Session.Clone()
 	defer sess.Close()
 
 	c := sess.DB("").C("generators")

@@ -22,7 +22,7 @@ func main() {
 	}
 	defer sess.Close()
 
-	ctx := &server.Context{
+	s := &server.Server{
 		Logger:  log.New(os.Stdout, "", 0),
 		Session: sess,
 	}
@@ -30,8 +30,7 @@ func main() {
 	port := getenv("PORT", defaultPort)
 
 	log.Printf("Starting serving on http://0.0.0.0:%s", port)
-	err = server.ListenAndServe(ctx, ":"+port)
-	if err != nil {
+	if err := s.ListenAndServe(":" + port); err != nil {
 		panic(err)
 	}
 }

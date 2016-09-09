@@ -16,20 +16,20 @@ func validBackdoorKey(keyParam string) bool {
 	return backdoorKey != "" && keyParam == backdoorKey
 }
 
-// Context contains the logger and MongoDB session
-type Context struct {
+// Server contains the logger and MongoDB session
+type Server struct {
 	Logger  *log.Logger
 	Session *mgo.Session
 }
 
 // Handler takes a context, request and response writer
-type Handler func(*Context, *http.Request, http.ResponseWriter) error
+type Handler func(*http.Request, http.ResponseWriter) error
 
-func handlerFunc(ctx *Context, fn Handler) http.Handler {
+func (s *Server) handlerFunc(fn Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		err := fn(ctx, r, w)
+		err := fn(r, w)
 		if err != nil {
-			ctx.Logger.Printf("handlerFunc: uri=%s err=%s", r.RequestURI, err)
+			s.Logger.Printf("handlerFunc: uri=%s err=%s", r.RequestURI, err)
 			w.WriteHeader(500)
 		}
 	})
@@ -47,8 +47,8 @@ func getSlug(r *http.Request, suffix string) (string, error) {
 
 // ListenAndServe creates a context, registers all handlers
 // and starts listening on the provided addr
-func ListenAndServe(ctx *Context, addr string) error {
-	http.Handle("/", handlerFunc(ctx, routesHandler))
+func (s *Server) ListenAndServe(addr string) error {
+	http.Handle("/", s.handlerFunc(s.routesHandler))
 
 	http.HandleFunc("/favicon.png", favicon)
 	http.HandleFunc("/favicon.ico", favicon)

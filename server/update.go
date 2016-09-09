@@ -9,7 +9,7 @@ import (
 	"github.com/peterhellberg/generate.name/generator"
 )
 
-func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+func (s *Server) updateHandler(r *http.Request, w http.ResponseWriter) error {
 	slug, err := getSlug(r, "")
 	if err != nil {
 		return err
@@ -20,7 +20,7 @@ func updateHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	sess := ctx.Session.Clone()
+	sess := s.Session.Clone()
 	defer sess.Close()
 
 	c := sess.DB("").C("generators")

@@ -19,13 +19,13 @@ type EditGenerator struct {
 	IsEditable bool
 }
 
-func editHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+func (s *Server) editHandler(r *http.Request, w http.ResponseWriter) error {
 	slug, err := getSlug(r, "/edit")
 	if err != nil {
 		return err
 	}
 
-	sess := ctx.Session.Clone()
+	sess := s.Session.Clone()
 	defer sess.Close()
 
 	c := sess.DB("").C("generators")

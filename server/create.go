@@ -9,7 +9,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func createHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+func (s *Server) createHandler(r *http.Request, w http.ResponseWriter) error {
 	err := r.ParseForm()
 	if err != nil {
 		return err
@@ -23,7 +23,7 @@ func createHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
 		return errors.New("invalid slug" + slug)
 	}
 
-	sess := ctx.Session.Clone()
+	sess := s.Session.Clone()
 	defer sess.Close()
 
 	c := sess.DB("").C("generators")

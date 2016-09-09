@@ -6,35 +6,35 @@ import (
 	"strings"
 )
 
-func routesHandler(ctx *Context, r *http.Request, w http.ResponseWriter) error {
+func (s *Server) routesHandler(r *http.Request, w http.ResponseWriter) error {
 	p := r.URL.Path
 
 	if r.Method == "GET" {
 		if p == "/" {
-			return indexHandler(ctx, r, w)
+			return s.indexHandler(r, w)
 		}
 
 		if strings.HasSuffix(p, "/edit") && len(p) > 5 {
-			return editHandler(ctx, r, w)
+			return s.editHandler(r, w)
 		}
 
 		if strings.HasSuffix(p, "/generate") && len(p) > 9 {
-			return generateHandler(ctx, r, w)
+			return s.generateHandler(r, w)
 		}
 
 		if strings.HasSuffix(p, "/") {
 			http.Redirect(w, r, strings.TrimRight(p, "/"), 301)
 		}
 
-		return showHandler(ctx, r, w)
+		return s.showHandler(r, w)
 	}
 
 	if r.Method == "POST" {
 		if r.URL.Path == "/" {
-			return createHandler(ctx, r, w)
+			return s.createHandler(r, w)
 		}
 
-		return updateHandler(ctx, r, w)
+		return s.updateHandler(r, w)
 	}
 
 	return errors.New("no such handler")
