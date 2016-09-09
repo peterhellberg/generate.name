@@ -39,7 +39,7 @@ The fields used by the template.
 
 ## License (MIT)
 
-Copyright (c) 2015 [Peter Hellberg](http://c7.se/)
+Copyright (c) 2015-2016 [Peter Hellberg](http://c7.se/)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
