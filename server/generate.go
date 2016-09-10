@@ -33,11 +33,15 @@ func (s *Server) generateHandler(r *http.Request, w http.ResponseWriter) error {
 
 	c := sess.DB("").C("generators")
 
-	g := generator.Generator{}
-	err = c.FindId(slug).One(&g)
-	if err == nil {
-		w.Write(g.GenerateNJoined(n, sep))
+	g := &generator.Generator{}
+
+	if err := c.FindId(slug).One(&g); err != nil {
+		return err
 	}
 
-	return nil
+	g.SetGenFunc(s.newGenFunc(slug))
+
+	_, err = w.Write(g.GenerateNJoined(n, sep))
+
+	return err
 }

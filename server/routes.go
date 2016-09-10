@@ -9,7 +9,8 @@ import (
 func (s *Server) routesHandler(r *http.Request, w http.ResponseWriter) error {
 	p := r.URL.Path
 
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		if p == "/" {
 			return s.indexHandler(r, w)
 		}
@@ -27,10 +28,8 @@ func (s *Server) routesHandler(r *http.Request, w http.ResponseWriter) error {
 		}
 
 		return s.showHandler(r, w)
-	}
-
-	if r.Method == "POST" {
-		if r.URL.Path == "/" {
+	case "POST":
+		if p == "/" {
 			return s.createHandler(r, w)
 		}
 

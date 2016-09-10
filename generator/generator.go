@@ -2,15 +2,20 @@ package generator
 
 import (
 	"bytes"
+	"log"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"strings"
 	"text/template"
 	"time"
 )
 
+var generatePattern = regexp.MustCompile(`\[GENERATE\s(\w+)\]`)
+
 // Generator represents an arbitrary generator
 type Generator struct {
+	genFunc  func(slug string) string
 	Slug     string   `bson:"_id"`
 	Name     string   `bson:"name"`
 	Key      string   `bson:"key,omitempty"`
@@ -39,13 +44,18 @@ func (g *Generator) GenerateN(n int) [][]byte {
 	return list
 }
 
+func (g *Generator) SetGenFunc(genFunc func(string) string) {
+	g.genFunc = genFunc
+}
+
 // Generate generates a random slice of bytes
 func (g *Generator) Generate() []byte {
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	t, err := template.New(g.Slug).Parse(g.Template)
 	if err != nil {
-		panic(err)
+		log.Printf("parse error: %+v\n", err)
+		return []byte{}
 	}
 
 	var gen bytes.Buffer
@@ -66,10 +76,15 @@ func (g *Generator) Generate() []byte {
 	})
 
 	if err != nil {
-		panic(err)
+		log.Printf("execute error: %+v\n", err)
+		return []byte{}
 	}
 
 	s := gen.String()
+
+	if g.genFunc != nil {
+		s = generatePattern.ReplaceAllStringFunc(s, g.genFunc)
+	}
 
 	// Break row
 	s = strings.Replace(s, `[BR]`, `<br>`, -1)
