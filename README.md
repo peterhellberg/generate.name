@@ -24,6 +24,7 @@ You can also use a few predefined tags in both the template and each individual 
  - *[D]* - Random number from 1-9
  - *[ROMAN10]* - Random roman numeral from 1-10
  - *[END]* - End the generated string
+ - *[GENERATE slug]* - Generates string based on generator identified by `slug`
 
 ### Key
 
