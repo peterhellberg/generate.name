@@ -7,6 +7,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/peterhellberg/generate.name/generator"
+
 	"gopkg.in/mgo.v2"
 )
 
@@ -35,16 +37,6 @@ func (s *Server) handlerFunc(fn Handler) http.Handler {
 	})
 }
 
-func getSlug(r *http.Request, suffix string) (string, error) {
-	segments := strings.Split(strings.TrimSuffix(r.URL.Path[1:], suffix), "/")
-
-	if len(segments) > 1 {
-		return "", errors.New("not a valid path: " + r.URL.Path)
-	}
-
-	return segments[0], nil
-}
-
 // ListenAndServe creates a context, registers all handlers
 // and starts listening on the provided addr
 func (s *Server) ListenAndServe(addr string) error {
@@ -54,4 +46,36 @@ func (s *Server) ListenAndServe(addr string) error {
 	http.HandleFunc("/favicon.ico", favicon)
 
 	return http.ListenAndServe(addr, nil)
+}
+
+func (s *Server) newGenFunc(slug string) func(string) string {
+	return func(src string) string {
+		gSlug := strings.TrimSuffix(strings.TrimPrefix(src, "[GENERATE "), "]")
+
+		if gSlug == "" || gSlug == slug {
+			return src
+		}
+
+		sess := s.Session.Clone()
+		defer sess.Close()
+
+		g := &generator.Generator{}
+
+		err := sess.DB("").C("generators").FindId(gSlug).One(g)
+		if err != nil {
+			return src
+		}
+
+		return string(g.Generate())
+	}
+}
+
+func getSlug(r *http.Request, suffix string) (string, error) {
+	segments := strings.Split(strings.TrimSuffix(r.URL.Path[1:], suffix), "/")
+
+	if len(segments) > 1 {
+		return "", errors.New("not a valid path: " + r.URL.Path)
+	}
+
+	return segments[0], nil
 }

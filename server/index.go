@@ -20,7 +20,7 @@ func (s *Server) indexHandler(r *http.Request, w http.ResponseWriter) error {
 
 	c := sess.DB("").C("generators")
 
-	err := c.Find(nil).All(&gs)
+	err := c.Find(nil).Sort("slug").All(&gs)
 	if err != nil {
 		return err
 	}

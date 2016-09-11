@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-var generatePattern = regexp.MustCompile(`\[GENERATE\s(\w+)\]`)
+var generatePattern = regexp.MustCompile(`\[GENERATE\s([\w\-]+)\]`)
 
 // Generator represents an arbitrary generator
 type Generator struct {
@@ -83,6 +83,8 @@ func (g *Generator) Generate() []byte {
 	s := gen.String()
 
 	if g.genFunc != nil {
+		s = generatePattern.ReplaceAllStringFunc(s, g.genFunc)
+		s = generatePattern.ReplaceAllStringFunc(s, g.genFunc)
 		s = generatePattern.ReplaceAllStringFunc(s, g.genFunc)
 	}
 

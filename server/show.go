@@ -52,28 +52,6 @@ func (s *Server) showHandler(r *http.Request, w http.ResponseWriter) error {
 	return show.Execute(w, ShowGenerator{g, editable})
 }
 
-func (s *Server) newGenFunc(slug string) func(string) string {
-	return func(src string) string {
-		gSlug := strings.TrimSuffix(strings.TrimPrefix(src, "[GENERATE "), "]")
-
-		if gSlug == "" || gSlug == slug {
-			return src
-		}
-
-		sess := s.Session.Clone()
-		defer sess.Close()
-
-		g := &generator.Generator{}
-
-		err := sess.DB("").C("generators").FindId(gSlug).One(g)
-		if err != nil {
-			return src
-		}
-
-		return string(g.Generate())
-	}
-}
-
 func (s *Server) showJSON(slug string, r *http.Request, w http.ResponseWriter) error {
 	sess := s.Session.Clone()
 	defer sess.Close()
