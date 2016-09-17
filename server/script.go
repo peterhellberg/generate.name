@@ -11,6 +11,10 @@ func script(w http.ResponseWriter, r *http.Request) {
 
 var javaScript = []byte(`// generate.name script
 
+var generate = function(name, count, successHandler, errorHandler) {
+  getJSON("//generate.name/"+ name + ".json?n="+count, successHandler, errorHandler);
+}
+
 var getJSON = function(url, successHandler, errorHandler) {
   var xhr = typeof XMLHttpRequest != 'undefined'
     ? new XMLHttpRequest()
