@@ -38,5 +38,5 @@ var getJSON = function(url, successHandler, errorHandler) {
 };
 
 function ready(f){
-	/in/.test(document.readyState)?setTimeout('r('+f+')',9):f();
+	/in/.test(document.readyState)?setTimeout('ready('+f+')',9):f();
 };`)
