@@ -16,7 +16,7 @@ func (s *Server) generateHandler(r *http.Request, w http.ResponseWriter) error {
 	q := r.URL.Query()
 
 	n, err := strconv.Atoi(q.Get("n"))
-	if err != nil || n > 100 {
+	if err != nil || n > 15 {
 		n = 5
 	}
 

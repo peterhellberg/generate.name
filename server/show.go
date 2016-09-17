@@ -66,8 +66,8 @@ func (s *Server) showJSON(slug string, r *http.Request, w http.ResponseWriter) e
 	g.SetGenFunc(s.newGenFunc(slug))
 
 	n, err := strconv.Atoi(r.URL.Query().Get("n"))
-	if err != nil || n < 1 || n > 100 {
-		n = 10
+	if err != nil || n < 1 || n > 15 {
+		n = 5
 	}
 
 	response := ShowResponse{
