@@ -37,8 +37,16 @@ func (g *Generator) GenerateNJoined(n int, sep string) []byte {
 func (g *Generator) GenerateN(n int) [][]byte {
 	list := [][]byte{}
 
-	for i := 0; i < n; i++ {
-		list = append(list, g.Generate())
+	for i := 0; i < n*2; i++ {
+		b := g.Generate()
+
+		if !containsBytes(list, b) {
+			list = append(list, b)
+		}
+
+		if len(list) == n {
+			return list
+		}
 	}
 
 	return list
@@ -108,6 +116,15 @@ func (g *Generator) Generate() []byte {
 	}
 
 	return []byte(strings.Split(s, "[END]")[0])
+}
+
+func containsBytes(b [][]byte, e []byte) bool {
+	for _, a := range b {
+		if bytes.Equal(a, e) {
+			return true
+		}
+	}
+	return false
 }
 
 func randArrayString(src []string) []string {
