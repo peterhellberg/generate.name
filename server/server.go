@@ -42,6 +42,7 @@ func (s *Server) handlerFunc(fn Handler) http.Handler {
 func (s *Server) ListenAndServe(addr string) error {
 	http.Handle("/", s.handlerFunc(s.routesHandler))
 
+	http.HandleFunc("/script.js", script)
 	http.HandleFunc("/favicon.png", favicon)
 	http.HandleFunc("/favicon.ico", favicon)
 
