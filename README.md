@@ -1,10 +1,10 @@
 # [generate.name](http://generate.name)
 
-A Generator-Generator
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/peterhellberg/generate.name)](https://goreportcard.com/report/github.com/peterhellberg/generate.name)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/generate.name/server)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/generate.name#license-mit)
+
+A Generator-Generator
 
 ## Fields on the edit page
 
