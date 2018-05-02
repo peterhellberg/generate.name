@@ -2,6 +2,7 @@
 
 A Generator-Generator
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/peterhellberg/generate.name)](https://goreportcard.com/report/github.com/peterhellberg/generate.name)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/generate.name/server)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/generate.name#license-mit)
 
@@ -40,7 +41,7 @@ The fields used by the template.
 
 ## License (MIT)
 
-Copyright (c) 2015-2016 [Peter Hellberg](http://c7.se/)
+Copyright (c) 2015-2018 [Peter Hellberg](https://c7.se/)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
@@ -52,6 +53,8 @@ Copyright (c) 2015-2016 [Peter Hellberg](http://c7.se/)
 
 > The above copyright notice and this permission notice shall be
 > included in all copies or substantial portions of the Software.
+
+<img src="https://data.gopher.se/gopher/viking-gopher.svg" align="right" width="230" height="230">
 
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 > EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
