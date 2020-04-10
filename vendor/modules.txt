@@ -1,0 +1,7 @@
+# gopkg.in/mgo.v2 v2.0.0-20160818020120-3f83fa500528
+## explicit
+gopkg.in/mgo.v2
+gopkg.in/mgo.v2/bson
+gopkg.in/mgo.v2/internal/json
+gopkg.in/mgo.v2/internal/sasl
+gopkg.in/mgo.v2/internal/scram
