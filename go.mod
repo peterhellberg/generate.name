@@ -1,4 +1,4 @@
-// +heroku goVersion go1.14.2
+// +heroku goVersion go1.14
 
 module github.com/peterhellberg/generate.name
 
