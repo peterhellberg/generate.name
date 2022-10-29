@@ -1,0 +1,4 @@
+[ build ]
+  [[ build.env ]]
+    name="BP_GO_VERSION"
+    value="1.19.2"
