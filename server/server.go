@@ -7,9 +7,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/peterhellberg/generate.name/generator"
+	"go.mongodb.org/mongo-driver/mongo"
 
-	"gopkg.in/mgo.v2"
+	"github.com/peterhellberg/generate.name/generator"
 )
 
 var backdoorKey = os.Getenv("BACKDOOR_KEY")
@@ -20,8 +20,8 @@ func validBackdoorKey(keyParam string) bool {
 
 // Server contains the logger and MongoDB session
 type Server struct {
-	Logger  *log.Logger
-	Session *mgo.Session
+	Logger *log.Logger
+	Client *mongo.Client
 }
 
 // Handler takes a context, request and response writer
@@ -57,15 +57,15 @@ func (s *Server) newGenFunc(slug string) func(string) string {
 			return src
 		}
 
-		sess := s.Session.Clone()
-		defer sess.Close()
+		// sess := s.Session.Clone()
+		// defer sess.Close()
 
 		g := &generator.Generator{}
 
-		err := sess.DB("").C("generators").FindId(gSlug).One(g)
-		if err != nil {
-			return src
-		}
+		// err := sess.DB("").C("generators").FindId(gSlug).One(g)
+		// if err != nil {
+		// 	return src
+		// }
 
 		return string(g.Generate())
 	}

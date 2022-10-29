@@ -33,16 +33,16 @@ func (s *Server) showHandler(r *http.Request, w http.ResponseWriter) error {
 		return s.showJSON(strings.TrimSuffix(slug, ".json"), r, w)
 	}
 
-	sess := s.Session.Clone()
-	defer sess.Close()
+	// sess := s.Session.Clone()
+	// defer sess.Close()
 
-	c := sess.DB("").C("generators")
+	// c := sess.DB("").C("generators")
 
 	g := generator.Generator{}
-	err = c.FindId(slug).One(&g)
-	if err != nil {
-		return err
-	}
+	// err = c.FindId(slug).One(&g)
+	// if err != nil {
+	// 	return err
+	// }
 
 	g.SetGenFunc(s.newGenFunc(slug))
 
@@ -53,15 +53,15 @@ func (s *Server) showHandler(r *http.Request, w http.ResponseWriter) error {
 }
 
 func (s *Server) showJSON(slug string, r *http.Request, w http.ResponseWriter) error {
-	sess := s.Session.Clone()
-	defer sess.Close()
+	// sess := s.Session.Clone()
+	// defer sess.Close()
 
 	g := &generator.Generator{}
 
-	err := sess.DB("").C("generators").FindId(slug).One(g)
-	if err != nil {
-		return err
-	}
+	// err := sess.DB("").C("generators").FindId(slug).One(g)
+	// if err != nil {
+	// 	return err
+	// }
 
 	g.SetGenFunc(s.newGenFunc(slug))
 

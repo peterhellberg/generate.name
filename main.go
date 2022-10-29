@@ -1,10 +1,13 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
+	"time"
 
-	"gopkg.in/mgo.v2"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/peterhellberg/generate.name/server"
 )
@@ -15,16 +18,24 @@ const (
 
 func main() {
 	log.Println("Connecting to MongoDB…")
-	sess, err := mgo.Dial(mongoURL())
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoURL()))
 	if err != nil {
-		log.Printf("Can't connect to MongoDB, go error %v\n", err)
-		os.Exit(1)
+		panic(err)
 	}
-	defer sess.Close()
+
+	defer func() {
+		if err = client.Disconnect(ctx); err != nil {
+			panic(err)
+		}
+	}()
 
 	s := &server.Server{
-		Logger:  log.New(os.Stdout, "", 0),
-		Session: sess,
+		Logger: log.New(os.Stdout, "", 0),
+		Client: client,
 	}
 
 	port := getenv("PORT", defaultPort)

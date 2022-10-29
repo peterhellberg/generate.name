@@ -20,21 +20,21 @@ type EditGenerator struct {
 }
 
 func (s *Server) editHandler(r *http.Request, w http.ResponseWriter) error {
-	slug, err := getSlug(r, "/edit")
+	_, err := getSlug(r, "/edit")
 	if err != nil {
 		return err
 	}
 
-	sess := s.Session.Clone()
-	defer sess.Close()
+	// sess := s.Session.Clone()
+	// defer sess.Close()
 
-	c := sess.DB("").C("generators")
+	// c := s.Client.Database("").Collection("generators")
 
 	g := generator.Generator{}
-	err = c.FindId(slug).One(&g)
-	if err != nil {
-		return err
-	}
+	// err = c.FindOne(slug).Decode(&g)
+	// if err != nil {
+	// 	return err
+	// }
 
 	keyParam := r.URL.Query().Get("key")
 	editable := g.Key == "" || g.Key == keyParam || validBackdoorKey(keyParam)
