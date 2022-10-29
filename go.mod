@@ -1,7 +1,7 @@
-// +heroku goVersion go1.14
+// +heroku goVersion go1.18
 
 module github.com/peterhellberg/generate.name
 
-go 1.14
+go 1.18
 
-require gopkg.in/mgo.v2 v2.0.0-20160818020120-3f83fa500528
+require gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
