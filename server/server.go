@@ -7,8 +7,6 @@ import (
 	"os"
 	"strings"
 
-	"go.mongodb.org/mongo-driver/mongo"
-
 	"github.com/peterhellberg/generate.name/generator"
 )
 
@@ -18,10 +16,10 @@ func validBackdoorKey(keyParam string) bool {
 	return backdoorKey != "" && keyParam == backdoorKey
 }
 
-// Server contains the logger and MongoDB session
+// Server contains the logger and a generator.Store
 type Server struct {
 	Logger *log.Logger
-	Client *mongo.Client
+	generator.Store
 }
 
 // Handler takes a context, request and response writer

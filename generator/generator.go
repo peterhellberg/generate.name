@@ -2,16 +2,28 @@ package generator
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"math/rand"
 	"regexp"
 	"strconv"
 	"strings"
 	"text/template"
-	"time"
+)
+
+var (
+	ErrNotFound      = fmt.Errorf("generator not found")
+	ErrAlreadyExists = fmt.Errorf("generator already exists")
 )
 
 var generatePattern = regexp.MustCompile(`\[GENERATE\s([\w\-]+)\]`)
+
+type Store interface {
+	All() ([]*Generator, error)
+	Find(slug string) (*Generator, error)
+	Update(g *Generator) error
+	Create(g *Generator) error
+}
 
 // Generator represents an arbitrary generator
 type Generator struct {
@@ -58,8 +70,6 @@ func (g *Generator) SetGenFunc(genFunc func(string) string) {
 
 // Generate generates a random slice of bytes
 func (g *Generator) Generate() []byte {
-	rand.Seed(time.Now().UTC().UnixNano())
-
 	t, err := template.New(g.Slug).Parse(g.Template)
 	if err != nil {
 		log.Printf("parse error: %+v\n", err)

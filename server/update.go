@@ -4,6 +4,7 @@ import (
 	"errors"
 	"html"
 	"net/http"
+	"strings"
 
 	"github.com/peterhellberg/generate.name/generator"
 )
@@ -19,17 +20,10 @@ func (s *Server) updateHandler(r *http.Request, w http.ResponseWriter) error {
 		return err
 	}
 
-	// sess := s.Session.Clone()
-	// defer sess.Close()
-
-	// c := sess.DB("").C("generators")
-
-	g := generator.Generator{}
-
-	// err = c.FindId(slug).One(&g)
-	// if err != nil {
-	// 	return err
-	// }
+	g, err := s.Find(slug)
+	if err != nil {
+		return err
+	}
 
 	keyParam := r.URL.Query().Get("key")
 	editable := g.Key == "" || g.Key == keyParam
@@ -38,23 +32,23 @@ func (s *Server) updateHandler(r *http.Request, w http.ResponseWriter) error {
 		return errors.New("not allowed to edit this generator")
 	}
 
-	// name := html.EscapeString(r.FormValue("name"))
+	name := html.EscapeString(r.FormValue("name"))
 	key := html.EscapeString(r.FormValue("key"))
 
-	//_, err = c.UpsertId(slug, &generator.Generator{
-	//	Slug:     slug,
-	//	Name:     name,
-	//	Key:      key,
-	//	Field1:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field1"))), "\n"),
-	//	Field2:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field2"))), "\n"),
-	//	Field3:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field3"))), "\n"),
-	//	Field4:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field4"))), "\n"),
-	//	Field5:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field5"))), "\n"),
-	//	Field6:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field6"))), "\n"),
-	//	Template: html.EscapeString(r.FormValue("template")),
-	//})
+	ng := &generator.Generator{
+		Slug:     slug,
+		Name:     name,
+		Key:      key,
+		Field1:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field1"))), "\n"),
+		Field2:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field2"))), "\n"),
+		Field3:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field3"))), "\n"),
+		Field4:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field4"))), "\n"),
+		Field5:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field5"))), "\n"),
+		Field6:   strings.Split(strings.TrimSpace(html.EscapeString(r.FormValue("field6"))), "\n"),
+		Template: html.EscapeString(r.FormValue("template")),
+	}
 
-	if err != nil {
+	if err := s.Update(ng); err != nil {
 		return err
 	}
 

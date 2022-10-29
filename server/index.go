@@ -13,18 +13,12 @@ var index = template.Must(template.ParseFiles(
 ))
 
 func (s *Server) indexHandler(r *http.Request, w http.ResponseWriter) error {
-	var gs []generator.Generator
+	gs, err := s.All()
+	if err != nil {
+		return err
+	}
 
-	// sess := s.Session.Clone()
-	// defer sess.Close()
-
-	// c := sess.DB("").C("generators")
-
-	// err := c.Find(nil).Sort("slug").All(&gs)
-	// if err != nil {
-	// 	return err
-	// }
-
-	return index.Execute(w,
-		struct{ Generators []generator.Generator }{gs})
+	return index.Execute(w, struct {
+		Generators []*generator.Generator
+	}{gs})
 }

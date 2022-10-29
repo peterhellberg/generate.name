@@ -1,15 +1,13 @@
 package main
 
 import (
-	"context"
 	"log"
+	"math/rand"
 	"os"
 	"time"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-
 	"github.com/peterhellberg/generate.name/server"
+	"github.com/peterhellberg/generate.name/stores/memory"
 )
 
 const (
@@ -17,25 +15,13 @@ const (
 )
 
 func main() {
-	log.Println("Connecting to MongoDB…")
+	rand.Seed(time.Now().UTC().UnixNano())
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoURL()))
-	if err != nil {
-		panic(err)
-	}
-
-	defer func() {
-		if err = client.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
+	store := memory.NewStore()
 
 	s := &server.Server{
 		Logger: log.New(os.Stdout, "", 0),
-		Client: client,
+		Store:  store,
 	}
 
 	port := getenv("PORT", defaultPort)

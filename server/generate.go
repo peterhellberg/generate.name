@@ -3,8 +3,6 @@ package server
 import (
 	"net/http"
 	"strconv"
-
-	"github.com/peterhellberg/generate.name/generator"
 )
 
 func (s *Server) generateHandler(r *http.Request, w http.ResponseWriter) error {
@@ -28,16 +26,10 @@ func (s *Server) generateHandler(r *http.Request, w http.ResponseWriter) error {
 		sep = "\n"
 	}
 
-	// sess := s.Session.Clone()
-	// defer sess.Close()
-
-	// c := sess.DB("").C("generators")
-
-	g := &generator.Generator{}
-
-	// if err := c.FindId(slug).One(&g); err != nil {
-	// 	return err
-	// }
+	g, err := s.Store.Find(slug)
+	if err != nil {
+		return err
+	}
 
 	g.SetGenFunc(s.newGenFunc(slug))
 
