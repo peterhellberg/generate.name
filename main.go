@@ -36,7 +36,7 @@ func main() {
 }
 
 func mongoURL() string {
-	if url := os.Getenv("MONGOHQ_URL"); url != "" {
+	if url := os.Getenv("MONGO_URL"); url != "" {
 		return url
 	}
 
