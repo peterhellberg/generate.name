@@ -2,21 +2,15 @@ package main
 
 import (
 	"log"
-	"math/rand"
 	"os"
-	"time"
 
 	"github.com/peterhellberg/generate.name/server"
 	"github.com/peterhellberg/generate.name/stores/memory"
 )
 
-const (
-	defaultPort = "1337"
-)
+const defaultPort = "1337"
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
-
 	store := memory.NewStore()
 
 	s := &server.Server{
@@ -30,14 +24,6 @@ func main() {
 	if err := s.ListenAndServe(":" + port); err != nil {
 		panic(err)
 	}
-}
-
-func mongoURL() string {
-	if url := os.Getenv("MONGO_URL"); url != "" {
-		return url
-	}
-
-	return "mongodb://localhost/generator-generator"
 }
 
 func getenv(key, fallback string) string {
