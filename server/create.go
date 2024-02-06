@@ -28,6 +28,13 @@ func (s *Server) createHandler(r *http.Request, w http.ResponseWriter) error {
 		Name: name,
 	}
 
+	// Disable creation of generators for now
+	if true {
+		http.Redirect(w, r, "/", 301)
+
+		return nil
+	}
+
 	if err := s.Create(g); err != nil {
 		return err
 	}
